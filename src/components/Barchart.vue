@@ -7,7 +7,11 @@
   <input type="number" v-model="maxAge"/>
   <button @click="RenderGraph">Go!</button>
   <p>Graph can go below</p>
-  <Bar v-if="showGraph"
+  <div class="h-12 w-12">
+  <Bar 
+    v-if="showGraph"
+    :height="60"
+    :width="100"
     :chart-options="chartOptions"
     :chart-data="{
         labels: binnedChartData.map(row => row.age),
@@ -17,9 +21,9 @@
             data: binnedChartData.map(row => row.count)
           }
         ]}"
-    :width="400"
-    :height="400"
   />
+  </div>
+  
 </template>
 
 <script setup>
@@ -41,7 +45,6 @@ function Colorize(opaque)
     return opaque ? c : c /*Utils.transparentize(c, 1 - Math.abs(v / 150))*/;
   };
 }
-
 var binnedChartData = $ref(new Array());
 const minAge = $ref(6);
 const maxAge = $ref(100);
