@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import Papa from 'papaparse'
 import Barchart from './Barchart.vue'
     var bigFile = $ref(null);
-    var ages = $ref([]);
+    const ages = $ref([]);
     var dataLoaded = $ref(false);
 
     function previewFiles(e) 
@@ -23,7 +23,9 @@ import Barchart from './Barchart.vue'
         },*/
 
         step: function(results) {
-            ages.push(results.data.order_metadata_age); 
+            if(results.data.order_metadata_age != null){
+                ages.push(results.data.order_metadata_age);
+            }
             //console.log(results.data.order_metadata_age);
             //console.log("Row:", results.data);
 	    },
