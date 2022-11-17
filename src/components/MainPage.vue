@@ -40,10 +40,12 @@ import Barchart from './Barchart.vue'
 </script>
 
 <template>
+    <h1 class="text-yellow-700">Eventix report to graph converter</h1>
     <input type="file" @change="event => previewFiles(event)"/>
-    <p>Text</p>
     <button @click="parse">Parse</button>
-
+<div>
     <Barchart v-if="dataLoaded" :chart-data="ages"></Barchart>
+</div>
+    
 
 </template>

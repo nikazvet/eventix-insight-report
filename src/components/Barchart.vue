@@ -1,17 +1,16 @@
 <template>
   <br/>
-  <h1>Set settings for graph</h1>
+  <h2>Set settings for graph</h2>
   From
   <input type="number" v-model="minAge"/>
   To
   <input type="number" v-model="maxAge"/>
   <button @click="RenderGraph">Go!</button>
-  <p>Graph can go below</p>
-  <div class="h-12 w-12">
+  <p>Age graph</p>
+  <div class="h-20 w-20">
   <Bar 
     v-if="showGraph"
-    :height="60"
-    :width="100"
+    :height="80"
     :chart-options="chartOptions"
     :chart-data="{
         labels: binnedChartData.map(row => row.age),
@@ -38,9 +37,9 @@ function Colorize(opaque)
   return (ctx) => {
     const v = ctx.parsed.y;
     const c = v < -50 ? '#D60000'
-      : v < 20 ? '#F46300'
-      : v < 276 ? '#0358B6'
-      : '#44DE28';
+      : v < 92 ? '#FDD900'
+      : v < 276 ? '#44DE28'
+      : '#006AFF';
 
     return opaque ? c : c /*Utils.transparentize(c, 1 - Math.abs(v / 150))*/;
   };
