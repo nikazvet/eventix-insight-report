@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import Papa from 'papaparse'
 import Barchart from './Barchart.vue'
+import LoadingAnimation from './LoadingAnimation.vue'
     var bigFile = $ref(null);
     const ages = $ref([]);
+    var dataLoading = $ref(false);
     var dataLoaded = $ref(false);
 
     function previewFiles(e) 
@@ -12,6 +14,7 @@ import Barchart from './Barchart.vue'
     }
 
     function parse(){
+        dataLoading = true;
         // Stream big file in worker thread
         Papa.parse(bigFile, {
         worker: true,
@@ -32,6 +35,7 @@ import Barchart from './Barchart.vue'
         complete: function() {
             console.log(ages.length);
 		console.log("All done!");
+        dataLoading = false;
         dataLoaded = true;
 	    }
     })
@@ -45,6 +49,7 @@ import Barchart from './Barchart.vue'
     <button @click="parse">Parse</button>
 <div>
     <Barchart v-if="dataLoaded" :chart-data="ages"></Barchart>
+    <LoadingAnimation v-if="dataLoading"></LoadingAnimation>
 </div>
     
 

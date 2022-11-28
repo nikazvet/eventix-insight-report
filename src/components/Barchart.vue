@@ -22,6 +22,7 @@
         ]}"
   />
   </div>
+  <p>Your target demographic is xx - zz years old</p>
   
 </template>
 
@@ -64,7 +65,7 @@ function RenderGraph(){
   CreateBins();
   showGraph = true;
 }
-
+RenderGraph();
 function CreateBins(){
   binnedChartData = new Array((maxAge - minAge) + 1);
   for (let index = 0; index < ((maxAge - minAge) + 1); index++) {
