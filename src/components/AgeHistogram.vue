@@ -7,7 +7,7 @@
   <input type="number" v-model="maxAge"/>
   <button @click="RenderGraph">Go!</button>
   <p>Age graph</p>
-  <div class="h-20 w-20">
+  <div>
   <Bar 
     v-if="showGraph"
     :height="80"

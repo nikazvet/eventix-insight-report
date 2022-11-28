@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import Papa from 'papaparse'
-import Barchart from './Barchart.vue'
 import LoadingAnimation from './LoadingAnimation.vue'
+import AgeHistogram from './AgeHistogram.vue';
     var bigFile = $ref(null);
     const ages = $ref([]);
     var dataLoading = $ref(false);
@@ -44,11 +44,11 @@ import LoadingAnimation from './LoadingAnimation.vue'
 </script>
 
 <template>
-    <h1 class="text-yellow-700">Eventix report to graph converter</h1>
+    <h1 class="text-blue-700">Eventix report to graph converter</h1>
     <input type="file" @change="event => previewFiles(event)"/>
     <button @click="parse">Parse</button>
 <div>
-    <Barchart v-if="dataLoaded" :chart-data="ages"></Barchart>
+    <AgeHistogram v-if="dataLoaded" :chart-data="ages"></AgeHistogram>
     <LoadingAnimation v-if="dataLoading"></LoadingAnimation>
 </div>
     
