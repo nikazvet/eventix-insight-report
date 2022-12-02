@@ -2,10 +2,9 @@
   <br/>
   <h2>Set settings for graph</h2>
   From
-  <input type="number" v-model="minAge"/>
+  <input type="number" v-model="minAge" @change="RenderGraph"/>
   To
-  <input type="number" v-model="maxAge"/>
-  <button @click="RenderGraph">Go!</button>
+  <input type="number" v-model="maxAge" @change="RenderGraph"/>
   <p>Age graph</p>
   <div>
   <Bar 
@@ -13,16 +12,16 @@
     :height="80"
     :chart-options="chartOptions"
     :chart-data="{
-        labels: binnedChartData.map(row => row.age),
+        labels: ages.map(row => row.Age),
         datasets: [
           {
             label: 'Ages',
-            data: binnedChartData.map(row => row.count)
+            data: ages.map(row => row.AgeCount)
           }
         ]}"
   />
   </div>
-  <p>Your target demographic is xx - zz years old</p>
+  <p v-if="showGraph">Your target demographic is {{audience.min}} - {{audience.max}} years old</p>
   
 </template>
 
@@ -30,6 +29,7 @@
 import { Bar } from 'vue-chartjs'
 import { ref } from 'vue'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import Stats from './stats'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -45,7 +45,6 @@ function Colorize(opaque)
     return opaque ? c : c /*Utils.transparentize(c, 1 - Math.abs(v / 150))*/;
   };
 }
-var binnedChartData = $ref(new Array());
 const minAge = $ref(6);
 const maxAge = $ref(100);
 var showGraph = $ref(false);
@@ -57,29 +56,17 @@ var chartOptions = {
         borderWidth: 2
       }
     }};
-console.log("processed");
 const props = defineProps({
   chartData: Array,
 })
+const ages = $ref();
+const audience = $ref({});
 function RenderGraph(){
-  CreateBins();
+  showGraph = false;
+  ages = Stats.histogram(props.chartData, minAge, maxAge)
+  var Audience = Stats.coredemograhic(props.chartData, 6, 100);
+  audience = Audience
   showGraph = true;
 }
-RenderGraph();
-function CreateBins(){
-  binnedChartData = new Array((maxAge - minAge) + 1);
-  for (let index = 0; index < ((maxAge - minAge) + 1); index++) {
-    binnedChartData[(index - minAge) + 1] = ({age: index + minAge, count: 0});
-  }
-  props.chartData.forEach(element => {
-    if(element != null){
-      if(element >= minAge && element < maxAge){
-        //console.log(element);
-        binnedChartData[(element - minAge)].count++;
-      }
-    }
-    
-  });
-  console.log("Data binned");
-}
+RenderGraph()
 </script>

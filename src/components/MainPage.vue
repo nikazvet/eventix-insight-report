@@ -5,12 +5,16 @@ import LoadingAnimation from './LoadingAnimation.vue'
 import AgeHistogram from './AgeHistogram.vue';
     var bigFile = $ref(null);
     const ages = $ref([]);
+    const data = $ref([]);
     var dataLoading = $ref(false);
     var dataLoaded = $ref(false);
 
     function previewFiles(e) 
     {
         bigFile = e.target.files[0];
+        if(bigFile != null){
+            parse();
+        }
     }
 
     function parse(){
@@ -26,15 +30,10 @@ import AgeHistogram from './AgeHistogram.vue';
         },*/
 
         step: function(results) {
-            if(results.data.order_metadata_age != null){
-                ages.push(results.data.order_metadata_age);
-            }
-            //console.log(results.data.order_metadata_age);
-            //console.log("Row:", results.data);
+            data.push(results.data);
 	    },
         complete: function() {
-            console.log(ages.length);
-		console.log("All done!");
+        console.log("Data parsed. Total results: ", data.length);
         dataLoading = false;
         dataLoaded = true;
 	    }
@@ -46,9 +45,8 @@ import AgeHistogram from './AgeHistogram.vue';
 <template>
     <h1 class="text-blue-700">Eventix report to graph converter</h1>
     <input type="file" @change="event => previewFiles(event)"/>
-    <button @click="parse">Parse</button>
 <div>
-    <AgeHistogram v-if="dataLoaded" :chart-data="ages"></AgeHistogram>
+    <AgeHistogram v-if="dataLoaded" :chart-data="data"></AgeHistogram>
     <LoadingAnimation v-if="dataLoading"></LoadingAnimation>
 </div>
     
