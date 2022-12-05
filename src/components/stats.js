@@ -19,7 +19,7 @@ class Stats{
         .tail(1).toArray()[0]
         .AgeCount;
         var significantAges = df.where(row=>(row.AgeCount > (max * 0.75)));
-        var core = {max: significantAges.tail(1).toArray()[0].Age, min: significantAges.head(1).toArray()[0].Age};
+        var core = {max: significantAges.tail(1).toArray()[0].Age, min: significantAges.head(1).toArray()[0].Age, maxNum: max};
         return core;
     }
 }

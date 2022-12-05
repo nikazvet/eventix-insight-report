@@ -32,19 +32,6 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 import Stats from './stats'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-function Colorize(opaque) 
-    {
-  return (ctx) => {
-    const v = ctx.parsed.y;
-    const c = v < -50 ? '#D60000'
-      : v < 92 ? '#FDD900'
-      : v < 276 ? '#44DE28'
-      : '#006AFF';
-
-    return opaque ? c : c /*Utils.transparentize(c, 1 - Math.abs(v / 150))*/;
-  };
-}
 const minAge = $ref(6);
 const maxAge = $ref(100);
 var showGraph = $ref(false);
@@ -69,4 +56,17 @@ function RenderGraph(){
   showGraph = true;
 }
 RenderGraph()
+
+function Colorize(opaque) 
+    {
+  return (ctx) => {
+    const v = ctx.parsed.y;
+    const c = v < -50 ? '#D60000'
+      : v < audience.maxNum * 0.25 ? '#FDD900' //lower 25
+      : v < audience.maxNum * 0.75 ? '#44DE28' // rest of them
+      : '#006AFF'; // upper 25
+
+    return opaque ? c : c /*Utils.transparentize(c, 1 - Math.abs(v / 150))*/;
+  };
+}
 </script>
