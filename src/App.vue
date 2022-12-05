@@ -5,9 +5,9 @@
     <router-link to="/2">Section Three</router-link>
   </nav>
 
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component, route }">
     <transition :name="direction">
-      <component :is="Component" />
+      <component :is="Component" :key="route.path" />
     </transition>
   </router-view>
 </template>
@@ -22,11 +22,8 @@ export default {
 
   watch: {
     $route(to, from) {
-      // const prev = this.$route.path.match(/\d+/)[0];
-      const prev = from.path.length > 1 ? from.path.match(/\d+/)[0] : 0;
-      const next = to.path.match(/\d+/)[0];
-      // console.log(prev);
-      // prev < next ? console.log("moved forward") : console.log("moved prev");
+      const prev = from.path.length > 1 ? Number(from.path.match(/\d+/)[0]) : 0;
+      const next = Number(to.path.match(/\d+/)[0]);
       prev < next
         ? (this.direction = "forward")
         : (this.direction = "backward");
@@ -35,21 +32,67 @@ export default {
 };
 </script>
 
-<style scoped>
-.forward-enter-active {
-  animation: forward 0.35s ease-in;
+<style scoped lang="scss">
+$time: 0.5s;
+$delay: 0s;
+
+.backward-enter-active,
+.backward-leave-active {
+  transition: all 0.75s ease-out;
 }
-/* .forward-leave-active {
-  animation: backward 0.35s ease-in;
-} */
+.backward-enter-to {
+  position: absolute;
+  top: 0;
+}
+.backward-enter-from {
+  position: absolute;
+  top: -100%;
+}
+.backward-leave-to {
+  position: absolute;
+  bottom: -100%;
+}
+.backward-leave-from {
+  position: absolute;
+  bottom: 0;
+}
+//
+.forward-enter-active,
+.forward-leave-active {
+  transition: all 0.75s ease-out;
+}
+.forward-enter-to {
+  position: absolute;
+  bottom: 0;
+}
+.forward-enter-from {
+  position: absolute;
+  bottom: -100%;
+}
+.forward-leave-to {
+  position: absolute;
+  top: -100%;
+}
+.forward-leave-from {
+  position: absolute;
+  top: 0;
+}
+
+/* .forward-enter-active {
+  animation: forwardIn $time ease-in $delay;
+}
+.forward-leave-active {
+  animation: forwardOut $time ease-in $delay;
+}
+
 .backward-enter-active {
-  animation: backward 0.35s ease-in;
+  animation: backwardIn $time ease-in $delay;
 }
-/* .backward-leave-active {
-  animation: forward 0.35s ease-in;
+.backward-leave-active {
+  animation: backwardOut $time ease-in $delay;
 } */
 
-@keyframes backward {
+/* @keyframes backwardIn {
   0% {
     opacity: 0;
     transform: translateY(-30%);
@@ -60,7 +103,18 @@ export default {
   }
 }
 
-@keyframes forward {
+@keyframes backwardOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+}
+
+@keyframes forwardIn {
   0% {
     opacity: 0;
     transform: translateY(30%);
@@ -70,6 +124,17 @@ export default {
     transform: translateY(0%);
   }
 }
+
+@keyframes forwardOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+} */
 
 nav {
   position: fixed;

@@ -13,3 +13,12 @@ export default {
     <div>Hello 1</div>
   </DefaultLayout>
 </template>
+
+<style scoped>
+div {
+  width: 100%;
+  height: 100%;
+  padding: 5rem;
+  background-color: blue;
+}
+</style>

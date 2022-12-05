@@ -19,12 +19,12 @@ export default {
   justify-content: center;
   width: 100%;
   height: 100%;
+  /* padding: 5rem; */
 }
 
 .content {
-  width: 20rem;
-  height: 20rem;
+  width: 100%;
+  height: 100%;
   color: var(--color-primary);
-  background-color: blue;
 }
 </style>
