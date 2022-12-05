@@ -1,41 +1,66 @@
 <template>
   <nav>
-    <router-link to="/">Section One</router-link> |
-    <router-link to="/2">Seciton Two</router-link>
+    <router-link to="/0">Section One</router-link> |
+    <router-link to="/1">Section Two</router-link> |
+    <router-link to="/2">Section Three</router-link>
   </nav>
 
   <router-view v-slot="{ Component }">
-    <transition name="slide">
+    <transition :name="direction">
       <component :is="Component" />
     </transition>
   </router-view>
-
-  <!-- <router-view /> -->
-  <!-- <router-view v-slot="{ Component }">
-    <transition name="slide" mode="out-in">
-      <component is="Component" :key="$route.path"></component>
-    </transition>
-  </router-view> -->
 </template>
 
-<style scoped>
-.slide-enter-active {
-  animation: slide 0.35s ease-in;
-}
-.slide-leave-active {
-}
+<script>
+export default {
+  data() {
+    return {
+      direction: "forward",
+    };
+  },
 
-/* .slide-enter-active,
-.slide-leave-active {
-  transition: opacity 1s, transform 1s;
+  watch: {
+    $route(to, from) {
+      // const prev = this.$route.path.match(/\d+/)[0];
+      const prev = from.path.length > 1 ? from.path.match(/\d+/)[0] : 0;
+      const next = to.path.match(/\d+/)[0];
+      // console.log(prev);
+      // prev < next ? console.log("moved forward") : console.log("moved prev");
+      prev < next
+        ? (this.direction = "forward")
+        : (this.direction = "backward");
+    },
+  },
+};
+</script>
+
+<style scoped>
+.forward-enter-active {
+  animation: forward 0.35s ease-in;
 }
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-  transform: translateY(-30%);
+/* .forward-leave-active {
+  animation: backward 0.35s ease-in;
+} */
+.backward-enter-active {
+  animation: backward 0.35s ease-in;
+}
+/* .backward-leave-active {
+  animation: forward 0.35s ease-in;
 } */
 
-@keyframes slide {
+@keyframes backward {
+  0% {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes forward {
   0% {
     opacity: 0;
     transform: translateY(30%);

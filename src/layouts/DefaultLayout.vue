@@ -24,7 +24,6 @@ export default {
 .content {
   width: 20rem;
   height: 20rem;
-  /* margin: auto; */
   color: var(--color-primary);
   background-color: blue;
 }

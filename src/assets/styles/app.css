@@ -3,21 +3,23 @@
 @tailwind utilities; */
 
 :root {
-	--text-heading: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-	--text-body: Arial, Helvetica, sans-serif
+  --text-heading: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+  --text-body: Arial, Helvetica, sans-serif;
 
   --color-primary: red;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
-body, #app {
-	font-family: var(--text-body);
-	font-size: 18px;
+body,
+#app {
+  font-family: var(--text-body);
+  font-size: 18px;
   width: 100%;
   height: 100%;
-	overflow: hidden;
+  overflow: hidden;
 }
