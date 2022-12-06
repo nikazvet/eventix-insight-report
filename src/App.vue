@@ -1,10 +1,65 @@
-<template>
-  <nav>
-    <router-link to="/0">Section One</router-link> |
-    <router-link to="/1">Section Two</router-link> |
-    <router-link to="/2">Section Three</router-link>
-  </nav>
+<script>
+import Navigation from "./components/Navigation.vue";
+export default {
+  data() {
+    return {
+      direction: "forward",
+    };
+  },
+  components: {
+    Navigation,
+  },
+  created() {
+    window.addEventListener("wheel", this.handleWheel);
+  },
+  destroyed() {
+    window.removeEventListener("wheel", this.handleWheel);
+  },
+  methods: {
+    handleWheel(event) {
+      const currentDepth = this.$route.meta.depth;
+      // const maxDepth = this.$router.getRoutes().length - 1;
+      const maxDepth =
+        this.$router.getRoutes().filter((route) => {
+          if (route.meta.depth >= 0) return true;
+          return false;
+        }).length - 1;
+      const nextDepth = currentDepth + 1;
+      const prevDepth = currentDepth - 1;
 
+      if (event.deltaY > 0 && currentDepth < maxDepth)
+        this.$router.push(`/${nextDepth}`);
+      if (event.deltaY < 0 && currentDepth !== 0)
+        this.$router.push(`/${prevDepth}`);
+
+      // console.log(maxDepth);
+
+      // console.log(`${currentDepth}, ${maxDepth}`);
+
+      // const link = this.$router.resolve({
+      //   meta: {
+      //     depth: 4,
+      //   },
+      // });
+
+      // const link = this.$router.resolve("/4");
+      // console.log(link);
+
+      // console.log(this.$router.getRoutes());
+    },
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.meta.depth || 0;
+      const fromDepth = from.meta.depth || 0;
+      this.direction = toDepth >= fromDepth ? "forward" : "backward";
+    },
+  },
+};
+</script>
+
+<template>
+  <Navigation />
   <router-view v-slot="{ Component, route }">
     <transition :name="direction">
       <component :is="Component" :key="route.path" />
@@ -12,30 +67,7 @@
   </router-view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      direction: "forward",
-    };
-  },
-
-  watch: {
-    $route(to, from) {
-      const prev = from.path.length > 1 ? Number(from.path.match(/\d+/)[0]) : 0;
-      const next = Number(to.path.match(/\d+/)[0]);
-      prev < next
-        ? (this.direction = "forward")
-        : (this.direction = "backward");
-    },
-  },
-};
-</script>
-
 <style scoped lang="scss">
-$time: 0.5s;
-$delay: 0s;
-
 .backward-enter-active,
 .backward-leave-active {
   transition: all 0.75s ease-out;
@@ -76,69 +108,5 @@ $delay: 0s;
 .forward-leave-from {
   position: absolute;
   top: 0;
-}
-
-/* .forward-enter-active {
-  animation: forwardIn $time ease-in $delay;
-}
-.forward-leave-active {
-  animation: forwardOut $time ease-in $delay;
-}
-
-.backward-enter-active {
-  animation: backwardIn $time ease-in $delay;
-}
-.backward-leave-active {
-  animation: backwardOut $time ease-in $delay;
-} */
-
-/* @keyframes backwardIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-30%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes backwardOut {
-  0% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-}
-
-@keyframes forwardIn {
-  0% {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes forwardOut {
-  0% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-30%);
-  }
-} */
-
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 </style>

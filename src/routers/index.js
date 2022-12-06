@@ -11,16 +11,25 @@ const routes = [
   },
   {
     path: "/0",
+    meta: {
+      depth: 0,
+    },
     name: "SectionOne",
     component: SectionOne,
   },
   {
     path: "/1",
+    meta: {
+      depth: 1,
+    },
     name: "SectionTwo",
     component: SectionTwo,
   },
   {
     path: "/2",
+    meta: {
+      depth: 2,
+    },
     name: "SectionThree",
     component: SectionThree,
   },
