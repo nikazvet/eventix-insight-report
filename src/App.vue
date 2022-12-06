@@ -18,7 +18,6 @@ export default {
   methods: {
     handleWheel(event) {
       const currentDepth = this.$route.meta.depth;
-      // const maxDepth = this.$router.getRoutes().length - 1;
       const maxDepth =
         this.$router.getRoutes().filter((route) => {
           if (route.meta.depth >= 0) return true;
@@ -31,21 +30,6 @@ export default {
         this.$router.push(`/${nextDepth}`);
       if (event.deltaY < 0 && currentDepth !== 0)
         this.$router.push(`/${prevDepth}`);
-
-      // console.log(maxDepth);
-
-      // console.log(`${currentDepth}, ${maxDepth}`);
-
-      // const link = this.$router.resolve({
-      //   meta: {
-      //     depth: 4,
-      //   },
-      // });
-
-      // const link = this.$router.resolve("/4");
-      // console.log(link);
-
-      // console.log(this.$router.getRoutes());
     },
   },
   watch: {
@@ -68,6 +52,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
+// BACKWARD
 .backward-enter-active,
 .backward-leave-active {
   transition: all 0.75s ease-out;
@@ -88,7 +73,8 @@ export default {
   position: absolute;
   bottom: 0;
 }
-//
+
+// FORWARD
 .forward-enter-active,
 .forward-leave-active {
   transition: all 0.75s ease-out;
