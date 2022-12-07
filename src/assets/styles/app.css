@@ -5,7 +5,11 @@
 
   --color-primary: #0182e5;
   --color-primary--dark-100: #035491;
+
   --color-white: #fff;
+
+  --color-black: #000;
+  --color-primary--dark-100: rgb(56, 56, 56);
 
   --border-radius: 0.75rem;
   --padding: 2rem;

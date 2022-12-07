@@ -7,12 +7,14 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@svg-maps/netherlands": "^1.0.0",
 		"chart.js": "^3.9.1",
 		"normalize.css": "^8.0.1",
 		"papaparse": "^5.3.2",
 		"vue": "^3.2.41",
 		"vue-chartjs": "^4.1.2",
-		"vue-router": "^4.1.6"
+		"vue-router": "^4.1.6",
+		"vue-svg-map": "^1.2.0"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "^3.1.2",
