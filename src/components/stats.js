@@ -47,18 +47,21 @@ class Stats{
        .where(row => (row.Ticket!=null))
        .inflate().orderByDescending(row => row.TicketCount).head(10);;
 
-       console.log(df)
+    //    console.log(df)
        return df.toArray();
     }
 
     salesovertime(data){ //WIP
-        var df = new DataFrame(data).parseDates("created_at").groupBy(row => row.ticket_name)
+        var df = new DataFrame(data).groupBy(row => row["created_at"])
         .select(group => ({
-            Ticket: group.first().ticket_name,
-           TicketCount: group.deflate(row => row.ticket_name).count(),
+            Ticket: group.first()["created_at"],
+           TicketCount: group.deflate(row => row["created_at"]).count(),
        }))
        .where(row => (row.Ticket!=null))
-       .inflate().orderByDescending(row => row.TicketCount).head(10);;
+       .inflate().orderBy(row => row.Ticket);;
+
+       console.log(df);
+       return(df.toArray())
     }
 }
 

@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import Papa from 'papaparse'
 import LoadingAnimation from './LoadingAnimation.vue'
 import AgeHistogram from './AgeHistogram.vue';
+import GenderPieChart from './GenderPieChart.vue';
+import TopTicketsBar from './TopTicketsBar.vue';
+import SalesOverTimeLine from './SalesOverTimeLine.vue';
     var bigFile = $ref(null);
     const ages = $ref([]);
     const data = $ref([]);
@@ -43,11 +46,16 @@ import AgeHistogram from './AgeHistogram.vue';
 </script>
 
 <template>
-    <h1 class="text-blue-700">Eventix report to graph converter</h1>
-    <input type="file" @change="event => previewFiles(event)"/>
+    <div v-show="!dataLoaded">
+        <h1 class="text-blue-700">Eventix report to graph converter</h1>
+        <input type="file" @change="event => previewFiles(event)"/>
+    </div>
 <div>
     <AgeHistogram v-if="dataLoaded" :chart-data="data"></AgeHistogram>
+    <GenderPieChart v-if="dataLoaded" :chart-data="data"></GenderPieChart>
+    <TopTicketsBar v-if="dataLoaded" :chart-data="data"></TopTicketsBar>
     <LoadingAnimation v-if="dataLoading"></LoadingAnimation>
+    <SalesOverTimeLine v-if="dataLoaded" :chart-data="data"></SalesOverTimeLine>
 </div>
     
 

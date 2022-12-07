@@ -7,7 +7,7 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-  CategoryScale
+  CategoryScale,
 } from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
@@ -24,11 +24,11 @@ export default defineComponent({
     },
     width: {
       type: Number,
-      default: 400
+      default: 80
     },
     height: {
       type: Number,
-      default: 400
+      default: 100
     },
     cssClasses: {
       default: '',
