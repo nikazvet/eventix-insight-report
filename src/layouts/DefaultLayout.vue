@@ -12,19 +12,19 @@ export default {
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  /* padding: 5rem; */
+  background-color: var(--color-primary);
 }
 
 .content {
+  display: flex;
   width: 100%;
   height: 100%;
-  color: var(--color-primary);
 }
 </style>

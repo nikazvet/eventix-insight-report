@@ -1,24 +1,21 @@
 <script>
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import Box from "@/components/Box.vue";
+import Table from "@/components/Table.vue";
 export default {
   name: "SectionTwo",
   components: {
     DefaultLayout,
+    Box,
+    Table,
   },
 };
 </script>
 
 <template>
   <DefaultLayout>
-    <div>Hello 2</div>
+    <Box><Table /></Box>
   </DefaultLayout>
 </template>
 
-<style scoped>
-div {
-  width: 100%;
-  height: 100%;
-  padding: 5rem;
-  background-color: red;
-}
-</style>
+<style scoped></style>

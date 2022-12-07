@@ -1,24 +1,19 @@
 <script>
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import Box from "@/components/Box.vue";
 export default {
   name: "SectionTwo",
   components: {
     DefaultLayout,
+    Box,
   },
 };
 </script>
 
 <template>
   <DefaultLayout>
-    <div>Hello 3</div>
+    <Box>Hello 3</Box>
   </DefaultLayout>
 </template>
 
-<style scoped>
-div {
-  width: 100%;
-  height: 100%;
-  padding: 5rem;
-  background-color: yellow;
-}
-</style>
+<style scoped></style>

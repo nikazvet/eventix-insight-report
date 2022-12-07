@@ -4,16 +4,17 @@ export default {
   data() {
     return {
       direction: "forward",
+      scrolling: false,
     };
   },
   components: {
     Navigation,
   },
   created() {
-    window.addEventListener("wheel", this.handleWheel);
+    window.addEventListener("wheel", this.handleWheel, { passive: true });
   },
   destroyed() {
-    window.removeEventListener("wheel", this.handleWheel);
+    window.removeEventListener("wheel", this.handleWheel, { passive: true });
   },
   methods: {
     handleWheel(event) {
