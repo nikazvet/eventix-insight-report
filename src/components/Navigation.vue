@@ -8,7 +8,10 @@ export default {
   <nav>
     <router-link to="/0">Section One</router-link> |
     <router-link to="/1">Section Two</router-link> |
-    <router-link to="/2">Section Three</router-link>
+    <router-link to="/2">Section Three</router-link> |
+    <router-link to="/3">Section Four</router-link> |
+    <router-link to="/4">Section Five</router-link> |
+    <router-link to="/5">Section Six</router-link>
   </nav>
 </template>
 

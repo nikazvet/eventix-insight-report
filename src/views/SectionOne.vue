@@ -45,20 +45,22 @@ export default {
 
 <template>
   <DefaultLayout>
-    <div class="map__container">
-      <div class="examples__block__map examples__block__map--netherlands">
-        <Map
-          :map="Netherlands"
-          :location-class="getLocationClass"
-          @mouseover="pointLocation"
-          @mouseout="unpointLocation"
-          @mousemove="moveOnLocation"
-        />
-        <div class="examples__block__map__tooltip" :style="tooltipStyle">
-          {{ pointedLocation }}
+    <transition name="fade" appear>
+      <div class="map__container">
+        <div class="examples__block__map examples__block__map--netherlands">
+          <Map
+            :map="Netherlands"
+            :location-class="getLocationClass"
+            @mouseover="pointLocation"
+            @mouseout="unpointLocation"
+            @mousemove="moveOnLocation"
+          />
+          <div class="examples__block__map__tooltip" :style="tooltipStyle">
+            {{ pointedLocation }}
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </DefaultLayout>
 </template>
 
@@ -136,7 +138,7 @@ $color: #a1d99b;
         /* border: 1px solid darkgray; */
         background-color: white;
         /* border: 1px solid var(--color-primary--dark-100); */
-        box-shadow: 0 25px 30px -10px var(--color-primary--dark-100);
+        box-shadow: 0 25px 30px -10px var(--color-black--dark-100);
         opacity: 1;
         transition: opacity 0.3s ease-in-out;
       }
@@ -168,5 +170,24 @@ $color: #a1d99b;
 }
 .svg-map__location[aria-checked="true"] {
   fill: #f4bc44;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(80%);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+.fade-enter-active {
+  animation: fade 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.fade-leave-active {
+  animation: fade 0.6s cubic-bezier(0.65, 0, 0.35, 1) reverse;
 }
 </style>
