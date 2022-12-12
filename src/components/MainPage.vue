@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import Papa from 'papaparse'
 import LoadingAnimation from './LoadingAnimation.vue'
 import AgeHistogram from './AgeHistogram.vue';
@@ -7,7 +6,6 @@ import GenderPieChart from './GenderPieChart.vue';
 import TopTicketsBar from './TopTicketsBar.vue';
 import SalesOverTimeLine from './SalesOverTimeLine.vue';
     var bigFile = $ref(null);
-    const ages = $ref([]);
     const data = $ref([]);
     var dataLoading = $ref(false);
     var dataLoaded = $ref(false);
@@ -27,10 +25,6 @@ import SalesOverTimeLine from './SalesOverTimeLine.vue';
         worker: true,
         dynamicTyping: true,
         header: true,
-        /*transformHeader: function(header, index){
-            header = header.replaceAll(".", "-");
-            return header;
-        },*/
 
         step: function(results) {
             data.push(results.data);
