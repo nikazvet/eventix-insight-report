@@ -24,11 +24,11 @@ export default defineComponent({
     },
     width: {
       type: Number,
-      default: 80
+      default: 500
     },
     height: {
       type: Number,
-      default: 100
+      default: 500
     },
     cssClasses: {
       default: '',

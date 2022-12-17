@@ -64,6 +64,19 @@ class Stats{
        console.log(df);
        return(df.toArray())
     }
+
+    devices(data){ 
+        var df = new DataFrame(data).groupBy(row => row.device)
+        .select(group => ({
+            Device: group.first().device,
+           DeviceCount: group.deflate(row => row.device).count(),
+       }))
+       .where(row => (row.Device!=null))
+       .inflate().orderByDescending(row => row.DeviceCount);;
+
+       console.log(df.toArray());
+       return(df.toArray())
+    }
 }
 
 export default new Stats();

@@ -1,8 +1,6 @@
 <template>
     <Line
     v-if="showGraph"
-:height="100"
-:chart-options="chartOptions"
 :chart-data="{
     labels: tickets.map(row => row.Ticket),
     datasets: [
@@ -30,6 +28,7 @@ const tickets = $ref()
 
 function RenderGraph(){
 //tickets = Stats.salesovertime(props.chartData);
+Stats.devices(props.chartData)
 tickets = [
     {Ticket: "January", TicketCount: 299},
     {Ticket: "February", TicketCount: 1785},

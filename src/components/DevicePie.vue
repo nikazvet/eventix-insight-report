@@ -2,11 +2,11 @@
         <Pie
         v-if="showGraph"
     :chart-data="{
-        labels: gender.map(row => row.Gender),
+        labels: devices.map(row => row.Device),
         datasets: [
           {
-            label: 'Gender',
-            data: gender.map(row => row.GenderCount),
+            label: 'Devices',
+            data: devices.map(row => row.DeviceCount),
             backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(75, 192, 192, 0.2)',
@@ -33,10 +33,10 @@
   
   const showGraph = $ref(false);
 
-  const gender = $ref()
+  const devices = $ref()
 
   function RenderGraph(){
-    gender = Stats.gender(props.chartData)
+    devices = Stats.devices(props.chartData)
     showGraph = true;
   }
   RenderGraph()

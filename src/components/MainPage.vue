@@ -5,6 +5,7 @@ import AgeHistogram from './AgeHistogram.vue';
 import GenderPieChart from './GenderPieChart.vue';
 import TopTicketsBar from './TopTicketsBar.vue';
 import SalesOverTimeLine from './SalesOverTimeLine.vue';
+import DevicePie from './DevicePie.vue';
     var bigFile = $ref(null);
     const data = $ref([]);
     var dataLoading = $ref(false);
@@ -50,6 +51,7 @@ import SalesOverTimeLine from './SalesOverTimeLine.vue';
     <TopTicketsBar v-if="dataLoaded" :chart-data="data"></TopTicketsBar>
     <LoadingAnimation v-if="dataLoading"></LoadingAnimation>
     <SalesOverTimeLine v-if="dataLoaded" :chart-data="data"></SalesOverTimeLine>
+    <DevicePie v-if="dataLoaded" :chart-data="data"></DevicePie>
 </div>
     
 
